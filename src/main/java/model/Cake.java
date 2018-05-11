@@ -13,10 +13,16 @@ public class Cake {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cake")
-    private List<Recipe> recipes;
+    private List<RecipeItem> recipeItems;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cake")
     private List<OrderDetail> orderDetails;
+
+    public Cake(String name) {
+        this.name = name;}
+
+    public Cake() {
+    }
 
     public int getId() {
         return id;
@@ -34,12 +40,12 @@ public class Cake {
         this.name = name;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
+    public List<RecipeItem> getRecipeItems() {
+        return recipeItems;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
+    public void setRecipeItems(List<RecipeItem> recipeItems) {
+        this.recipeItems = recipeItems;
     }
 
     public List<OrderDetail> getOrderDetails() {
@@ -48,11 +54,5 @@ public class Cake {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
-    }
-
-    public Cake(String name) {
-        this.name = name;}
-
-    public Cake() {
     }
 }

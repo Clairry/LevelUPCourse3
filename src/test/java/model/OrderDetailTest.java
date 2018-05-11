@@ -30,7 +30,7 @@ public class OrderDetailTest {
     }
 
     @Test
-    public void testOrderDetails(){
+    public void testOrderDetails() throws Throwable {
         Customer customer = new Customer("Ivan", "12345", "Иванов Иван Иванович", "9999999");
         OrderInfo orderInfo = new OrderInfo(customer, new GregorianCalendar(2018, Calendar.JUNE, 01));
         Cake cake = new Cake("MangoCoconut");
@@ -40,10 +40,10 @@ public class OrderDetailTest {
         em.getTransaction().begin();
         try{
             em.persist(orderDetail);
+            em.getTransaction().commit();
         } catch (Throwable t) {
             em.getTransaction().rollback();
-        } finally {
-            em.getTransaction().commit();
+            throw t;
         }
 
         OrderDetail found = em.find(OrderDetail.class, orderDetail.getId());

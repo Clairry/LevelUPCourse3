@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 //строки рецептуры торта
 @Entity
-public class Recipe {
+public class RecipeItem {
 
     @Id
     @GeneratedValue()
@@ -22,6 +22,16 @@ public class Recipe {
     //вес в граммах
     @Column (nullable = false)
     private int amount;
+
+    public RecipeItem(Cake cake, CakePart cakePart, Ingridient ingridient, int amount) {
+        this.cake = cake;
+        this.cakePart = cakePart;
+        this.ingridient = ingridient;
+        this.amount = amount;
+    }
+
+    public RecipeItem() {
+    }
 
     public int getId() {
         return id;
@@ -61,15 +71,5 @@ public class Recipe {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public Recipe(Cake cake, CakePart cakePart, Ingridient ingridient, int amount) {
-        this.cake = cake;
-        this.cakePart = cakePart;
-        this.ingridient = ingridient;
-        this.amount = amount;
-    }
-
-    public Recipe() {
     }
 }

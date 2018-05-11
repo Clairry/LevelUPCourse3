@@ -13,8 +13,15 @@ public class Ingridient {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ingridient")
-    private List<Recipe> recipes;
+    @OneToMany(mappedBy = "ingridient")
+    private List<RecipeItem> recipeItems;
+
+    public Ingridient(String name) {
+        this.name = name;
+    }
+
+    public Ingridient() {
+    }
 
     public int getId() {
         return id;
@@ -30,12 +37,5 @@ public class Ingridient {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Ingridient(String name) {
-        this.name = name;
-    }
-
-    public Ingridient() {
     }
 }

@@ -40,6 +40,20 @@ public class OrderInfo {
     @Column(name = "telephone_of_customer")
     private String telephoneOfCustomer;
 
+    public OrderInfo(Customer customer, GregorianCalendar dateOfDelivery) {
+        this.customer = customer;
+        this.dateOfDelivery = dateOfDelivery;
+    }
+
+    public OrderInfo(GregorianCalendar dateOfDelivery, boolean isReady, boolean isDelivered, String nameOfCustomer, String telephoneOfCustomer) {
+        this.dateOfDelivery = dateOfDelivery;
+        this.nameOfCustomer = nameOfCustomer;
+        this.telephoneOfCustomer = telephoneOfCustomer;
+    }
+
+    public OrderInfo() {
+    }
+
     public int getId() {
         return id;
     }
@@ -102,19 +116,5 @@ public class OrderInfo {
 
     public void setTelephoneOfCustomer(String telephoneOfCustomer) {
         this.telephoneOfCustomer = telephoneOfCustomer;
-    }
-
-    public OrderInfo(Customer customer, GregorianCalendar dateOfDelivery) {
-        this.customer = customer;
-        this.dateOfDelivery = dateOfDelivery;
-    }
-
-    public OrderInfo(GregorianCalendar dateOfDelivery, boolean isReady, boolean isDelivered, String nameOfCustomer, String telephoneOfCustomer) {
-        this.dateOfDelivery = dateOfDelivery;
-        this.nameOfCustomer = nameOfCustomer;
-        this.telephoneOfCustomer = telephoneOfCustomer;
-    }
-
-    public OrderInfo() {
     }
 }

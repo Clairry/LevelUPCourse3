@@ -13,10 +13,10 @@ public class Form {
     private String name;
 
     //коэффициент пересчет базового рецепта под конкретную форму
-    @Column (nullable = false)
+    @Column (nullable = false, precision = 10, scale = 2)
     private float coeff;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
+    @OneToMany(mappedBy = "form")
     private List<OrderDetail> orderDetails;
 
     public int getId() {

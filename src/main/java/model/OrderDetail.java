@@ -20,6 +20,16 @@ public class OrderDetail {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Form form;
 
+    public OrderDetail(int amount, OrderInfo orderInfo, Cake cake, Form form) {
+        this.amount = amount;
+        this.orderInfo = orderInfo;
+        this.cake = cake;
+        this.form = form;
+    }
+
+    public OrderDetail() {
+    }
+
     public int getId() {
         return id;
     }
@@ -58,15 +68,5 @@ public class OrderDetail {
 
     public void setForm(Form form) {
         this.form = form;
-    }
-
-    public OrderDetail(int amount, OrderInfo orderInfo, Cake cake, Form form) {
-        this.amount = amount;
-        this.orderInfo = orderInfo;
-        this.cake = cake;
-        this.form = form;
-    }
-
-    public OrderDetail() {
     }
 }

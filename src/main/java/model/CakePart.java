@@ -14,7 +14,14 @@ public class CakePart {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cakePart")
-    private List<Recipe> recipes;
+    private List<RecipeItem> recipeItems;
+
+    public CakePart(String name) {
+        this.name = name;
+    }
+
+    public CakePart() {
+    }
 
     public int getId() {
         return id;
@@ -30,12 +37,5 @@ public class CakePart {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public CakePart(String name) {
-        this.name = name;
-    }
-
-    public CakePart() {
     }
 }

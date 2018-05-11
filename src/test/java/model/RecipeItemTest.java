@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 import static org.junit.Assert.assertNotNull;
 
-public class RecipeTest {
+public class RecipeItemTest {
     private EntityManagerFactory emf;
     private EntityManager em;
 
@@ -31,20 +31,19 @@ public class RecipeTest {
         Cake cake = new Cake("MangoCoconut");
         CakePart cakePart = new CakePart("Buscuit");
         Ingridient ingridient = new Ingridient("Flour");
-        Recipe recipe = new Recipe(cake, cakePart, ingridient, 100);
+        RecipeItem recipeItem = new RecipeItem(cake, cakePart, ingridient, 100);
 
         em.getTransaction().begin();
 
         try {
-            em.persist(recipe);
+            em.persist(recipeItem);
+            em.getTransaction().commit();
         } catch(Throwable t){
             em.getTransaction().rollback();
             throw t;
-        } finally{
-            em.getTransaction().commit();
         }
 
-        Recipe found = em.find(Recipe.class, recipe.getId());
+        RecipeItem found = em.find(RecipeItem.class, recipeItem.getId());
         assertNotNull(found);
         assertNotNull(found.getCakePart());
         assertNotNull(found.getCake());

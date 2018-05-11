@@ -27,6 +27,16 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<OrderInfo> orderInfos;
 
+    public Customer(String login, String password, String name, String telephoneNumber) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public Customer() {
+    }
+
     public int getId() {
         return id;
     }
@@ -81,15 +91,5 @@ public class Customer {
 
     public void setOrderInfos(List<OrderInfo> orderInfos) {
         this.orderInfos = orderInfos;
-    }
-
-    public Customer(String login, String password, String name, String telephoneNumber) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.telephoneNumber = telephoneNumber;
-    }
-
-    public Customer() {
     }
 }
