@@ -2,9 +2,10 @@ package model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Customer {
+public class User {
     @Id
     @GeneratedValue()
     private int id;
@@ -24,17 +25,17 @@ public class Customer {
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "user")
     private List<OrderInfo> orderInfos;
 
-    public Customer(String login, String password, String name, String telephoneNumber) {
+    public User(String login, String password, String name, String telephoneNumber) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.telephoneNumber = telephoneNumber;
     }
 
-    public Customer() {
+    public User() {
     }
 
     public int getId() {
@@ -91,5 +92,24 @@ public class Customer {
 
     public void setOrderInfos(List<OrderInfo> orderInfos) {
         this.orderInfos = orderInfos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(telephoneNumber, user.telephoneNumber) &&
+                Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, login, password, name, telephoneNumber, email);
     }
 }

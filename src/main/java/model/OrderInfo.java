@@ -1,12 +1,11 @@
 package model;
 
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "Order_Info")
 public class OrderInfo {
@@ -15,7 +14,7 @@ public class OrderInfo {
     private int id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private Customer customer;
+    private User user;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "orderInfo")
     private List<OrderDetail> orderDetails;
@@ -40,8 +39,8 @@ public class OrderInfo {
     @Column(name = "telephone_of_customer")
     private String telephoneOfCustomer;
 
-    public OrderInfo(Customer customer, GregorianCalendar dateOfDelivery) {
-        this.customer = customer;
+    public OrderInfo(User user, GregorianCalendar dateOfDelivery) {
+        this.user = user;
         this.dateOfDelivery = dateOfDelivery;
     }
 
@@ -62,12 +61,12 @@ public class OrderInfo {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<OrderDetail> getOrderDetails() {
@@ -116,5 +115,25 @@ public class OrderInfo {
 
     public void setTelephoneOfCustomer(String telephoneOfCustomer) {
         this.telephoneOfCustomer = telephoneOfCustomer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderInfo orderInfo = (OrderInfo) o;
+        return id == orderInfo.id &&
+                isReady == orderInfo.isReady &&
+                isDelivered == orderInfo.isDelivered &&
+                Objects.equals(user, orderInfo.user) &&
+                Objects.equals(dateOfDelivery, orderInfo.dateOfDelivery) &&
+                Objects.equals(nameOfCustomer, orderInfo.nameOfCustomer) &&
+                Objects.equals(telephoneOfCustomer, orderInfo.telephoneOfCustomer);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, user, dateOfDelivery, isReady, isDelivered, nameOfCustomer, telephoneOfCustomer);
     }
 }

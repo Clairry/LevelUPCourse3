@@ -2,8 +2,9 @@ package model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
-@Entity (name = "Cake_Part")
+@Entity(name = "Cake_Part")
 public class CakePart {
 
     @Id
@@ -37,5 +38,20 @@ public class CakePart {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CakePart cakePart = (CakePart) o;
+        return id == cakePart.id &&
+                Objects.equals(name, cakePart.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }
