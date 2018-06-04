@@ -3,7 +3,7 @@ package pastryApp.model;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class OrderInfo {
     private List<OrderDetail> orderDetails;
 
     @Column(name = "date_of_delivery")
-    private GregorianCalendar dateOfDelivery;
+    private Date dateOfDelivery;
 
     //торт сделан (метка для кондитера)
     @Column(name = "is_ready")
@@ -39,12 +39,12 @@ public class OrderInfo {
     @Column(name = "telephone_of_customer")
     private String telephoneOfCustomer;
 
-    public OrderInfo(User user, GregorianCalendar dateOfDelivery) {
+    public OrderInfo(User user, Date dateOfDelivery) {
         this.user = user;
         this.dateOfDelivery = dateOfDelivery;
     }
 
-    public OrderInfo(GregorianCalendar dateOfDelivery, String nameOfCustomer, String telephoneOfCustomer) {
+    public OrderInfo(Date dateOfDelivery, String nameOfCustomer, String telephoneOfCustomer) {
         this.dateOfDelivery = dateOfDelivery;
         this.nameOfCustomer = nameOfCustomer;
         this.telephoneOfCustomer = telephoneOfCustomer;
@@ -77,11 +77,11 @@ public class OrderInfo {
         this.orderDetails = orderDetails;
     }
 
-    public GregorianCalendar getDateOfDelivery() {
+    public Date getDateOfDelivery() {
         return dateOfDelivery;
     }
 
-    public void setDateOfDelivery(GregorianCalendar dateOfDelivery) {
+    public void setDateOfDelivery(Date dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
     }
 
