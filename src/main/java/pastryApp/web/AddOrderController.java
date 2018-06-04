@@ -14,7 +14,7 @@ import pastryApp.model.CartItem;
 import pastryApp.model.OrderInfo;
 
 import javax.servlet.http.HttpSession;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,7 +41,7 @@ public class AddOrderController {
     }
 
     @RequestMapping(path = "/add-order", method = RequestMethod.POST)
-    public String postAddCartItem(@RequestParam GregorianCalendar dateOfDelivery,
+    public String postAddCartItem(@RequestParam Date date,
                                   @RequestParam String telephone,
                                   HttpSession session,
                                   ModelMap model) {
@@ -50,7 +50,7 @@ public class AddOrderController {
         String userName = (String) session.getAttribute("userName");
 
         try {
-            OrderInfo orderInfo = orderInfosDAO.createOrderInfo(userName, dateOfDelivery , telephone);
+            OrderInfo orderInfo = orderInfosDAO.createOrderInfo(userName, date , telephone);
             List<CartItem> cartItems = cartItemsDAO.findCartItemsForUser(userName);
 
             for (CartItem cartItem : cartItems) {
