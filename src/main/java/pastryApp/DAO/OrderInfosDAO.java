@@ -7,6 +7,7 @@ import pastryApp.model.OrderInfo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Component
@@ -16,7 +17,7 @@ public class OrderInfosDAO {
     private EntityManager em;
 
     @Transactional
-    public OrderInfo createOrderInfo (String userName, GregorianCalendar dateOfDelivery, String telephoneOfCustomer) {
+    public OrderInfo createOrderInfo (String userName, Date dateOfDelivery, String telephoneOfCustomer) {
         OrderInfo orderInfo = new OrderInfo(dateOfDelivery, userName, telephoneOfCustomer);
 
         em.persist(orderInfo);

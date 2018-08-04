@@ -1,6 +1,8 @@
 package pastryApp.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +25,6 @@ public class AddCartItemController {
 
     @GetMapping(path = "/add-items-to-cart")
     public String addCartItemPage(HttpSession session, ModelMap model) {
-        if (ensureLoggedIn(session)) return "redirect:/";
-
         model.addAttribute("addCartItemBean", bean);
 
         return "addCartItem";
@@ -36,9 +36,9 @@ public class AddCartItemController {
                                   @RequestParam int amount,
                                   HttpSession session,
                                   ModelMap model) {
-        if (ensureLoggedIn(session)) return "redirect:/";
 
-        String userName = (String) session.getAttribute("userName");
+        String userName = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        //String userName = (String) session.getAttribute("userName");
 
         try {
             if (cartItemsDAO.findCartItemsForUserCakeForm(userName, cakeId, formId).isEmpty()) {

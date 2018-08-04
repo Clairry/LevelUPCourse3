@@ -1,6 +1,9 @@
 package pastryApp.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import pastryApp.DAO.CartItemsDAO;
 import pastryApp.DAO.OrderDetailsDAO;
 import pastryApp.DAO.OrderInfosDAO;
 import pastryApp.model.CartItem;
+import pastryApp.model.OrderDetail;
 import pastryApp.model.OrderInfo;
 
 import javax.servlet.http.HttpSession;
@@ -33,28 +37,26 @@ public class AddOrderController {
 
     @GetMapping(path = "/add-order")
     public String addOrderPage(HttpSession session, ModelMap model) {
-        if (ensureLoggedIn(session)) return "redirect:/";
-
         model.addAttribute("addOrderBean", bean);
 
         return "addOrder";
     }
 
     @RequestMapping(path = "/add-order", method = RequestMethod.POST)
-    public String postAddCartItem(@RequestParam Date date,
+    public String postAddCartItem(@RequestParam @DateTimeFormat(pattern = "yyyy-mm-dd") Date date,
                                   @RequestParam String telephone,
                                   HttpSession session,
                                   ModelMap model) {
-        if (ensureLoggedIn(session)) return "redirect:/";
 
-        String userName = (String) session.getAttribute("userName");
+        String userName = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        //String userName = (String) session.getAttribute("userName");
 
         try {
-            OrderInfo orderInfo = orderInfosDAO.createOrderInfo(userName, date , telephone);
+            OrderInfo orderInfo = orderInfosDAO.createOrderInfo(userName, date, telephone);
             List<CartItem> cartItems = cartItemsDAO.findCartItemsForUser(userName);
 
             for (CartItem cartItem : cartItems) {
-                orderDetailsDAO.createOrderDetail(cartItem.getAmount(), orderInfo, cartItem.getCake(), cartItem.getForm(), cartItem.getPrice());
+               orderDetailsDAO.createOrderDetail(cartItem.getAmount(), orderInfo, cartItem.getCake(), cartItem.getForm(), cartItem.getPrice());
             }
             cartItemsDAO.deleteCartItemForUser(userName);
         }
@@ -66,12 +68,5 @@ public class AddOrderController {
         model.addAttribute("addOrderBean", bean);
 
         return "addOrder";
-    }
-
-    private static boolean ensureLoggedIn(HttpSession session) {
-        if (session.getAttribute("userName") == null) {
-            return true;
-        }
-        return false;
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "FIND_BY_USER_ID", query = "from CartItem where user = :user"),
+        @NamedQuery(name = "FIND_BY_USER", query = "from CartItem where user = :user"),
         @NamedQuery(name = "FIND_BY_USER_ID_CAKE_ID_FORM_ID", query = "from CartItem where user = :user and cake_id = :cakeId and form_id = :formId")
 })
 public class CartItem {
@@ -75,11 +75,11 @@ public class CartItem {
     }
 
     public float getPrice() {
-        if (price < 0) throw new IllegalArgumentException("Price should't be negative");
         return price;
     }
 
     public void setPrice(float price) {
+        if (price < 0) throw new IllegalArgumentException("Price should't be negative");
         this.price = price;
     }
 

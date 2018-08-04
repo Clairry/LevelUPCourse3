@@ -30,11 +30,11 @@ public class AddRecipeItemController {
     @RequestMapping (path = "/add-recipe-item", method = RequestMethod.POST)
     public String postAddRecipeItem(@RequestParam("cake") int cakeId,
                                     @RequestParam("cakePart") int cakePartId,
-                                    @RequestParam("ingridient") int ingridientId,
+                                    @RequestParam("ingredient") int ingredientId,
                                     @RequestParam float amount,
                                     ModelMap model) {
         try {
-            recipeItemsDAO.createRecipeItem(cakeId, cakePartId, ingridientId, amount);
+            recipeItemsDAO.createRecipeItem(cakeId, cakePartId, ingredientId, amount);
         }
         catch (Throwable t) {
             t.printStackTrace();
