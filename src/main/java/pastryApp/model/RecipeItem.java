@@ -5,7 +5,7 @@ import java.util.Objects;
 
 //строки рецептуры торта
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"cake_id","cakePart_id","ingridient_id"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"cake_id","cakePart_id","ingredient_id"})})
 @NamedQueries({
         @NamedQuery(name = "SEARCH_BY_CAKE_ID", query = "from RecipeItem Where cake_id = :cakeId order by cakePart_id")
 })
@@ -22,16 +22,16 @@ public class RecipeItem {
     private CakePart cakePart;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private Ingridient ingridient;
+    private Ingredient ingredient;
 
     //вес в граммах
     @Column (nullable = false, precision = 10, scale = 2)
     private float amount;
 
-    public RecipeItem(Cake cake, CakePart cakePart, Ingridient ingridient, float amount) {
+    public RecipeItem(Cake cake, CakePart cakePart, Ingredient ingredient, float amount) {
         this.cake = cake;
         this.cakePart = cakePart;
-        this.ingridient = ingridient;
+        this.ingredient = ingredient;
         setAmount(amount);
     }
 
@@ -62,12 +62,12 @@ public class RecipeItem {
         this.cakePart = cakePart;
     }
 
-    public void setIngridient(Ingridient ingridient) {
-        this.ingridient = ingridient;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
-    public Ingridient getIngridient() {
-        return ingridient;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
     public float getAmount() {
@@ -88,12 +88,12 @@ public class RecipeItem {
                 amount == that.amount &&
                 Objects.equals(cake, that.cake) &&
                 Objects.equals(cakePart, that.cakePart) &&
-                Objects.equals(ingridient, that.ingridient);
+                Objects.equals(ingredient, that.ingredient);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, cake, cakePart, ingridient, amount);
+        return Objects.hash(id, cake, cakePart, ingredient, amount);
     }
 }

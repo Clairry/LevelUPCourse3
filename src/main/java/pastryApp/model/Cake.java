@@ -16,7 +16,7 @@ public class Cake {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cake")
     private List<RecipeItem> recipeItems;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cake")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cake")
     private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "cake")

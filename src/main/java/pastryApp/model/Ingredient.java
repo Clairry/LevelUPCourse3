@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Ingridient {
+public class Ingredient {
 
     @Id
     @GeneratedValue()
@@ -14,14 +14,14 @@ public class Ingridient {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "ingridient")
+    @OneToMany(mappedBy = "ingredient")
     private List<RecipeItem> recipeItems;
 
-    public Ingridient(String name) {
+    public Ingredient(String name) {
         this.name = name;
     }
 
-    public Ingridient() {
+    public Ingredient() {
     }
 
     public int getId() {
@@ -44,7 +44,7 @@ public class Ingridient {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ingridient that = (Ingridient) o;
+        Ingredient that = (Ingredient) o;
         return id == that.id &&
                 Objects.equals(name, that.name);
     }

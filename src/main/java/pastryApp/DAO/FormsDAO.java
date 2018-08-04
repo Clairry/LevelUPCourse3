@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pastryApp.model.Form;
+import pastryApp.repository.FormsRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,9 @@ public class FormsDAO {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    private FormsRepository repository;
+
     @Transactional
     public Form createForm (String name, float coeff, float price) {
         Form form = new Form(name, coeff, price);
@@ -25,5 +29,5 @@ public class FormsDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Form> findAllForms() {return em.createQuery("from Form").getResultList();}
+    public List<Form> findAllForms() {return repository.findAll();}
 }

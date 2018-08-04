@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pastryApp.model.Cake;
 import pastryApp.model.CakePart;
-import pastryApp.model.Ingridient;
+import pastryApp.model.Ingredient;
 import pastryApp.model.RecipeItem;
 
 import javax.persistence.EntityManager;
@@ -21,12 +21,12 @@ public class RecipeItemsDAO {
     @Transactional
     public RecipeItem createRecipeItem(int cakeId, int cakePartId, int ingridientId, float amount) {
         return createRecipeItem(em.find(Cake.class, cakeId), em.find(CakePart.class, cakePartId),
-                                em.find(Ingridient.class, ingridientId), amount);
+                                em.find(Ingredient.class, ingridientId), amount);
     }
 
     @Transactional
-    public RecipeItem createRecipeItem(Cake cake, CakePart cakePart, Ingridient ingridient, float amount) {
-        RecipeItem recipeItem = new RecipeItem(cake, cakePart, ingridient, amount);
+    public RecipeItem createRecipeItem(Cake cake, CakePart cakePart, Ingredient ingredient, float amount) {
+        RecipeItem recipeItem = new RecipeItem(cake, cakePart, ingredient, amount);
 
         em.persist(recipeItem);
 

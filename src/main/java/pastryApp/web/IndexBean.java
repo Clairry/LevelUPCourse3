@@ -14,15 +14,13 @@ import java.util.List;
 public class IndexBean {
     private final EntityManager em;
     private final CakesDAO cakesDao;
-    private final UsersDAO usersDAO;
 
-    public IndexBean (@Autowired EntityManager em, @Autowired CakesDAO cakesDao, @Autowired UsersDAO usersDAO) {
+    public IndexBean (@Autowired EntityManager em, @Autowired CakesDAO cakesDao) {
         this.em = em;
         this.cakesDao = cakesDao;
-        this.usersDAO = usersDAO;
     }
 
     public List<Cake> getCakes() {return cakesDao.findAllCakes();}
 
-    public List<User> getUsers() {return usersDAO.findAllUsers();}
+    //public List<User> getUsers() {return usersDAO.findAllUsers();}
 }

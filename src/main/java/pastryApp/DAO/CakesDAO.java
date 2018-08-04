@@ -1,6 +1,7 @@
 package pastryApp.DAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pastryApp.model.Cake;
@@ -15,6 +16,7 @@ public class CakesDAO {
     @PersistenceContext
     private EntityManager em;
 
+    @Secured("ADMIN")
     @Transactional
     public Cake createCake(String name) {
         Cake cake = new Cake(name);

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import pastryApp.DAO.RecipeItemsDAO;
 import pastryApp.model.Cake;
 import pastryApp.model.CakePart;
-import pastryApp.model.Ingridient;
+import pastryApp.model.Ingredient;
 import pastryApp.model.RecipeItem;
 
 import javax.persistence.EntityManager;
@@ -32,7 +32,7 @@ public class AddRecipeItemBean {
     public List<CakePart> getCakeParts() {return em.createQuery("from Cake_Part").getResultList();}
 
     @SuppressWarnings("unchecked")
-    public List<Ingridient> getIngridients() {return em.createQuery("from Ingridient").getResultList();}
+    public List<Ingredient> getIngredients() {return em.createQuery("from Ingredient").getResultList();}
 
     @SuppressWarnings("unchecked")
     public List<RecipeItem> getRecipeItems() {return em.createQuery("from RecipeItem").getResultList();}
